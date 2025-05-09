@@ -5,7 +5,7 @@ from rest_framework import serializers
 class UserFSerializer(serializers.HyperlinkedModelSerializer):
     username = serializers.CharField(source='user.username', read_only=True)
     email = serializers.EmailField(source='user.email', read_only=True)
-    url = serializers.HyperlinkedIdentityField(view_name='userf-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='users')
 
     class Meta:
         model = UserF
@@ -22,7 +22,7 @@ class UserFNestedSerializer(serializers.ModelSerializer):
 
 class StatementSerializer(serializers.HyperlinkedModelSerializer):
     author = UserFNestedSerializer(read_only=True)
-    url = serializers.HyperlinkedIdentityField(view_name='statement-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='statements')
 
     class Meta:
         model = Statement
@@ -31,7 +31,7 @@ class StatementSerializer(serializers.HyperlinkedModelSerializer):
 class ReactionSerializer(serializers.HyperlinkedModelSerializer):
     author = UserFNestedSerializer(read_only=True)
     statement = StatementSerializer(read_only=True)
-    url = serializers.HyperlinkedIdentityField(view_name='reaction-detail')
+    url = serializers.HyperlinkedIdentityField(view_name='reactions')
 
     class Meta:
         model = Reaction
